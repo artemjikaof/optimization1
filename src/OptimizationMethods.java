@@ -109,7 +109,7 @@ public class OptimizationMethods {
         while (flag) {
             k++;
             double Fmin = Math.min(f1, Math.min(f2, f3));
-            double xmin;
+            double xmin = 0;
             if (f1 == Fmin) {
                 xmin = x1;
             } else if (f2 == Fmin) {
@@ -127,21 +127,29 @@ public class OptimizationMethods {
                     flag = false;
                 } else {    
                     if (xBar <= x3 & xBar >= x1) {
-                        if (fXBar < f(xmin)) {
+                        if (fXBar < Fmin) {
                             if (x2 < xBar) {
                                 x1 = x2;
                                 x2 = xBar;
+                                f1 = f2;
+                                f2 =fXBar;
                             } else {
                                 x3 = x2;
                                 x2 = xBar;
+                                f3 = f2;
+                                f2 = fXBar;
                             }
                         } else {
                             if (x2 < xmin) {
                                 x1 = x2;
                                 x2 = xmin;
+                                f1 = f2;
+                                f2 = Fmin;
                             } else {
                                 x3 = x2;
                                 x2 = xmin;
+                                f3 = f2;
+                                f2 = Fmin;
                             }
                         }
                     } else {
@@ -200,13 +208,14 @@ public class OptimizationMethods {
         // Шаг 2: Ищем минимум методом золотого сечения
         double minGoldenSection = goldenSectionSearch(a, b, l);
         System.out.println("Минимум методом золотого сечения: x = " + minGoldenSection + ", f(x) = " + f(minGoldenSection));
-
+        System.out.println("Абсолютная погрешность для золотого сечения: "+ Math.abs(minGoldenSection - 1.157));
         // Шаг 3: Ищем минимум методом квадратичной интерполяции
         int[] qq= new int[1];
         double minQuadraticInterpolation = quadraticInterpolation(x_1, delta_x, epsilon1, epsilon2, qq);
         System.out.println("Минимум методом квадратичной интерполяции: x = " + minQuadraticInterpolation + ", f(x) = " + f(minQuadraticInterpolation));
         System.out.println("Количество итераций методом квадратичной интерполяции:" + qq[0]);
         // Шаг 4: Сравниваем результаты
+        System.out.println("Абсолютная погрешность для квадратичной интерполяции: "+ Math.abs(minQuadraticInterpolation - 1.157));
         System.out.println("Разница между методами: " + Math.abs(minGoldenSection - minQuadraticInterpolation));
     }
 }
