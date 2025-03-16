@@ -85,6 +85,7 @@ public class OptimizationMethods {
 
             k++;
         } while (Math.abs(a - b) > l);
+        System.out.println("Количество итераций методом золотого сечения:"+k);
 
         return (a + b) / 2;
     }
@@ -209,6 +210,7 @@ public class OptimizationMethods {
         double minGoldenSection = goldenSectionSearch(a, b, l);
         System.out.println("Минимум методом золотого сечения: x = " + minGoldenSection + ", f(x) = " + f(minGoldenSection));
         System.out.println("Абсолютная погрешность для золотого сечения: "+ Math.abs(minGoldenSection - 1.157));
+        System.out.println("Относительная погрешность для золотого сечения: " + Math.abs((minGoldenSection - 1.157)/minGoldenSection));
         // Шаг 3: Ищем минимум методом квадратичной интерполяции
         int[] qq= new int[1];
         double minQuadraticInterpolation = quadraticInterpolation(x_1, delta_x, epsilon1, epsilon2, qq);
@@ -216,6 +218,7 @@ public class OptimizationMethods {
         System.out.println("Количество итераций методом квадратичной интерполяции:" + qq[0]);
         // Шаг 4: Сравниваем результаты
         System.out.println("Абсолютная погрешность для квадратичной интерполяции: "+ Math.abs(minQuadraticInterpolation - 1.157));
+        System.out.println("Относительная погрешность для квадратичной интерполяции: "+ Math.abs((minQuadraticInterpolation - 1.157)/minQuadraticInterpolation));
         System.out.println("Разница между методами: " + Math.abs(minGoldenSection - minQuadraticInterpolation));
     }
 }
